@@ -1,427 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TCSN | THAI CYBER SECURITY NORMAL</title>
-
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TCSN | Thai Cyber Security Normal</title>
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #050505;
-    color: white;
-}
-
-header {
-    background: #080808;
-    border-bottom: 1px solid #00ff99;
-    padding: 20px;
-    text-align: center;
-}
-
-.logo {
-    color: #00ff99;
-    font-size: 45px;
-    font-weight: bold;
-    letter-spacing: 8px;
-    text-shadow: 0 0 15px #00ff99;
-}
-
-header p {
-    letter-spacing: 3px;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 15px;
-    background: #101010;
-}
-
-nav button {
-    background: transparent;
-    border: 1px solid #00ff99;
-    color: #00ff99;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-nav button:hover {
-    background: #00ff99;
-    color: black;
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px 15px;
-}
-
-.hero {
-    text-align: center;
-    padding: 65px 15px;
-    border: 1px solid #164c39;
-    background: linear-gradient(135deg, #101b18, #050505);
-    border-radius: 12px;
-}
-
-h2 {
-    color: #00ff99;
-}
-
-.card {
-    background: #101010;
-    border: 1px solid #222;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 15px 0;
-}
-
-input, textarea, select {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 15px;
-    background: #080808;
-    border: 1px solid #333;
-    color: white;
-    border-radius: 5px;
-}
-
-.action {
-    background: #00ff99;
-    color: black;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-.notice {
-    color: #00ff99;
-}
-
-footer {
-    margin-top: 40px;
-    padding: 25px;
-    text-align: center;
-    color: #777;
-    border-top: 1px solid #222;
-}
+:root{--bg:#070b12;--panel:#101827;--line:#233349;--cyan:#00f0c8;--text:#eef5ff;--muted:#9aabc2;--red:#ff647c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#11233a 0,#070b12 45%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:22px 16px;text-align:center;border-bottom:1px solid var(--line);background:#080d16eF;position:sticky;top:0;z-index:2}
+.logo{font-size:30px;font-weight:900;letter-spacing:4px;color:var(--cyan);text-shadow:0 0 20px #00f0c855}header p{margin:5px 0 0;color:var(--muted);font-size:13px}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px;background:#0b111d;border-bottom:1px solid var(--line)}
+button,.btn{border:1px solid #24516a;background:#102234;color:var(--text);border-radius:9px;padding:10px 13px;cursor:pointer;font-weight:650}button:hover,.btn:hover{border-color:var(--cyan)}button.primary{background:var(--cyan);color:#001510;border-color:var(--cyan)}button.danger{border-color:#7a2e40;color:#ff9cac}
+main{max-width:1050px;margin:auto;padding:18px 14px 50px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.card{background:linear-gradient(145deg,#111c2c,#0c1320);border:1px solid var(--line);border-radius:15px;padding:17px;margin-bottom:14px;box-shadow:0 12px 30px #0002}.card h2,.card h3{margin-top:0}.muted{color:var(--muted)}.badge{display:inline-block;border:1px solid #1f786d;color:var(--cyan);padding:3px 8px;border-radius:99px;font-size:12px}
+input,textarea,select{width:100%;padding:11px 12px;margin:5px 0 12px;border:1px solid #2a3b50;background:#070d16;color:var(--text);border-radius:8px;font:inherit}textarea{min-height:100px;resize:vertical}label{font-size:13px;color:#c4d1e2}.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}.hidden{display:none!important}.post{padding:12px 0;border-bottom:1px solid var(--line);white-space:pre-wrap;overflow-wrap:anywhere}.post:last-child{border-bottom:0}.notice{border-left:3px solid var(--cyan);padding:9px 12px;background:#0a2026;border-radius:5px;color:#d9fff8}.status{padding:10px;border-radius:8px;background:#111d2b;color:var(--muted);margin:8px 0}.status.error{color:#ff9cac;border:1px solid #743448}.status.ok{color:#9dffda;border:1px solid #1e695b}.small{font-size:12px}.footer{text-align:center;color:var(--muted);padding:22px;font-size:12px}a{color:var(--cyan)}.role-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
 </style>
 </head>
-
 <body>
-
-<header>
-    <div class="logo">TCSN</div>
-    <p>THAI CYBER SECURITY NORMAL</p>
-    <small>CYBER SECURITY • COMMUNITY • EDUCATION</small>
-</header>
-
+<header><div class="logo">TCSN</div><strong>THAI CYBER SECURITY NORMAL</strong><p>ชมรมส่งเสริมความปลอดภัยไซเบอร์ไทย</p></header>
 <nav>
-    <button onclick="showPage('home')">หน้าแรก</button>
-    <button onclick="showPage('community')">คอมมูนิตี้</button>
-    <button onclick="showPage('report')">แจ้งเรื่อง</button>
-    <button onclick="showPage('announcements')">ประกาศ</button>
-    <button onclick="showPage('login')">เข้าสู่ระบบ</button>
+<button data-view="home">หน้าแรก</button><button data-view="community">คอมมูนิตี้</button><button data-view="reports">แจ้งเหตุ</button><button data-view="announcements">ประกาศ</button><button data-view="account">บัญชีสมาชิก</button><button data-view="admin" id="adminNav" class="hidden">ระบบแอดมิน</button>
 </nav>
-
-<div class="container">
-
-<section id="home" class="page active">
-    <div class="hero">
-        <h2>WELCOME TO TCSN</h2>
-        <p>ชมรมส่งเสริมความปลอดภัยไซเบอร์ไทย</p>
-        <p>เรียนรู้ แบ่งปัน และสร้างสังคมไซเบอร์ที่ปลอดภัย</p>
-        <button class="action" onclick="showPage('community')">
-            เข้าสู่คอมมูนิตี้
-        </button>
-    </div>
-
-    <div class="card">
-        <h2>เกี่ยวกับชมรม</h2>
-        <p>
-            TCSN เป็นพื้นที่สำหรับแบ่งปันความรู้
-            ด้านความปลอดภัยไซเบอร์ การป้องกันภัยออนไลน์
-            และการสร้างความตระหนักรู้ทางดิจิทัล
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>ประกาศล่าสุด</h2>
-        <div id="homeNotices">ยังไม่มีประกาศ</div>
-    </div>
+<main>
+<div id="globalStatus" class="status">กำลังตรวจสอบการตั้งค่าระบบ…</div>
+<section id="view-home">
+<div class="card"><span class="badge">CYBER SAFETY COMMUNITY</span><h1>ร่วมสร้างโลกออนไลน์ที่ปลอดภัย</h1><p class="muted">ศูนย์กลางเรียนรู้ แลกเปลี่ยนความรู้ แจ้งเหตุ และติดตามประกาศของชมรม TCSN</p><div class="row"><button class="primary" data-view="account">สมัครสมาชิก / เข้าสู่ระบบ</button><button data-view="community">เข้าชมคอมมูนิตี้</button></div></div>
+<div class="grid"><div class="card"><h3>🛡️ เรียนรู้ความปลอดภัย</h3><p class="muted">แบ่งปันแนวทางป้องกันบัญชีและข้อมูลส่วนบุคคล</p></div><div class="card"><h3>🚨 แจ้งเหตุอย่างรับผิดชอบ</h3><p class="muted">ส่งรายละเอียดให้ทีมงานตรวจสอบ หลีกเลี่ยงการโพสต์รหัสผ่านหรือข้อมูลส่วนตัว</p></div><div class="card"><h3>📢 ข่าวสารชมรม</h3><p class="muted">ติดตามประกาศจากผู้ดูแลระบบ</p></div></div>
 </section>
+<section id="view-account" class="hidden"><div class="grid"><div class="card"><h2>สมัครสมาชิก</h2><form id="signupForm"><label>ชื่อที่แสดง</label><input id="signupName" required maxlength="60"><label>อีเมล</label><input id="signupEmail" type="email" required><label>รหัสผ่าน (อย่างน้อย 8 ตัว)</label><input id="signupPassword" type="password" minlength="8" required><button class="primary">สร้างบัญชี</button></form></div><div class="card"><h2>เข้าสู่ระบบ</h2><form id="loginForm"><label>อีเมล</label><input id="loginEmail" type="email" required><label>รหัสผ่าน</label><input id="loginPassword" type="password" required><button class="primary">เข้าสู่ระบบ</button></form><p><button id="resetPassword">ส่งลิงก์ตั้งรหัสผ่านใหม่</button></p><button id="logoutBtn" class="danger hidden">ออกจากระบบ</button><div id="accountInfo" class="muted small"></div></div></div></section>
+<section id="view-community" class="hidden"><div class="card"><h2>💬 คอมมูนิตี้</h2><p class="muted">สมาชิกที่เข้าสู่ระบบแล้วสามารถโพสต์ข้อความได้ ห้ามเผยแพร่ข้อมูลส่วนบุคคลหรือเนื้อหาผิดกฎหมาย</p><form id="communityForm" class="hidden"><label>ข้อความ</label><textarea id="communityText" maxlength="2000" required placeholder="แบ่งปันความรู้หรือสอบถามเรื่องความปลอดภัยไซเบอร์…"></textarea><button class="primary">โพสต์ข้อความ</button></form><div id="communityList"></div></div></section>
+<section id="view-reports" class="hidden"><div class="card"><h2>🚨 แจ้งเหตุภัยคุกคามไซเบอร์</h2><p class="muted">ระบบนี้ไม่ใช่ช่องทางฉุกเฉิน กรุณาอย่าแนบ password, OTP, เลขบัตร หรือข้อมูลอ่อนไหว</p><form id="reportForm"><label>หัวข้อเหตุการณ์</label><input id="reportTitle" required maxlength="120"><label>ประเภท</label><select id="reportType"><option>บัญชีถูกยึด</option><option>ฟิชชิง / หลอกลวง</option><option>มัลแวร์</option><option>การคุกคามออนไลน์</option><option>อื่น ๆ</option></select><label>รายละเอียด (อย่าใส่รหัสผ่านหรือ OTP)</label><textarea id="reportDetails" required maxlength="4000"></textarea><label>ช่องทางติดต่อกลับ (ไม่บังคับ)</label><input id="reportContact" maxlength="120"><button class="primary">ส่งรายงาน</button></form><div id="myReports"></div></div></section>
+<section id="view-announcements" class="hidden"><div class="card"><h2>📢 ประกาศชมรม</h2><div id="announcementList"></div></div></section>
+<section id="view-admin" class="hidden"><div class="card"><h2>🛡️ แผงควบคุมแอดมิน</h2><p class="notice">เฉพาะบัญชีที่ได้รับสิทธิ์จากฐานข้อมูลเท่านั้นที่จัดการได้</p><h3>สร้างประกาศ</h3><form id="announcementForm"><label>หัวข้อ</label><input id="announcementTitle" required maxlength="150"><label>เนื้อหา</label><textarea id="announcementBody" required maxlength="5000"></textarea><button class="primary">เผยแพร่ประกาศ</button></form></div>
+<div class="card"><h3>กำหนดบทบาทสมาชิก</h3><p class="muted small">ใส่ UID ของสมาชิกที่ได้จาก Firebase Authentication และกำหนดบทบาท ระบบจะตรวจสิทธิ์จาก Firestore Rules</p><form id="roleForm"><label>UID สมาชิก</label><input id="roleUid" required><label>บทบาท</label><select id="roleName"><option value="member">สมาชิก</option><option value="moderator">ผู้ดูแลคอมมูนิตี้</option><option value="admin">แอดมิน</option><option value="president">ประธานชมรม</option><option value="vice_president">รองประธานชมรม</option></select><button class="primary">บันทึกบทบาท</button></form><h3>บทบาทที่สร้างไว้</h3><form id="createRoleForm"><label>ชื่อบทบาทใหม่ (อังกฤษ ตัวพิมพ์เล็ก/ขีดล่าง)</label><input id="newRoleId" required pattern="[a-z][a-z0-9_]{2,30}"><label>ชื่อแสดง</label><input id="newRoleLabel" required maxlength="60"><label>สิทธิ์</label><select id="newRoleLevel"><option value="member">สิทธิ์สมาชิก</option><option value="moderator">สิทธิ์ผู้ดูแลคอมมูนิตี้</option><option value="admin">สิทธิ์แอดมิน</option></select><button>สร้างบทบาท</button></form><div id="roleList"></div><h3>รายงานที่ได้รับ</h3><div id="adminReports"></div></div></section>
+<div class="footer">TCSN • โปรดใช้งานเพื่อการศึกษาและป้องกันภัยไซเบอร์อย่างถูกกฎหมาย</div>
+</main>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc, addDoc, getDoc, getDocs, query, orderBy, limit, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<section id="community" class="page">
-    <h2>คอมมูนิตี้ TCSN</h2>
-
-    <div class="card">
-        <h3>สร้างโพสต์</h3>
-        <input id="postTitle" placeholder="หัวข้อโพสต์">
-        <textarea id="postText" placeholder="เขียนข้อความ"></textarea>
-        <button class="action" onclick="createPost()">เผยแพร่โพสต์</button>
-    </div>
-
-    <div id="posts"></div>
-</section>
-
-<section id="report" class="page">
-    <h2>ระบบแจ้งเรื่อง</h2>
-
-    <div class="card">
-        <input id="reportTitle" placeholder="หัวข้อที่ต้องการแจ้ง">
-        <select id="reportType">
-            <option>เหตุสงสัยหลอกลวงออนไลน์</option>
-            <option>ปัญหาความปลอดภัยไซเบอร์</option>
-            <option>รายงานเนื้อหาไม่เหมาะสม</option>
-            <option>ข้อเสนอแนะ</option>
-        </select>
-        <textarea id="reportText" placeholder="รายละเอียด"></textarea>
-        <button class="action" onclick="sendReport()">ส่งเรื่อง</button>
-    </div>
-
-    <div id="reports"></div>
-</section>
-
-<section id="announcements" class="page">
-    <h2>ประกาศจากชมรม</h2>
-    <div id="notices"></div>
-</section>
-
-<section id="login" class="page">
-    <h2>สมัครสมาชิก / เข้าสู่ระบบ</h2>
-
-    <div class="card">
-        <h3>สมัครสมาชิก</h3>
-        <input id="regName" placeholder="ชื่อสมาชิก">
-        <input id="regEmail" type="email" placeholder="อีเมล">
-        <input id="regPassword" type="password" placeholder="รหัสผ่าน">
-        <button class="action" onclick="register()">สมัครสมาชิก</button>
-    </div>
-
-    <div class="card">
-        <h3>เข้าสู่ระบบ</h3>
-        <input id="loginEmail" type="email" placeholder="อีเมล">
-        <input id="loginPassword" type="password" placeholder="รหัสผ่าน">
-        <button class="action" onclick="login()">เข้าสู่ระบบ</button>
-        <p id="loginStatus"></p>
-    </div>
-</section>
-
-<section id="admin" class="page">
-    <h2>ระบบจัดการแอดมิน</h2>
-
-    <div class="card">
-        <h3>สร้างประกาศ</h3>
-        <input id="noticeTitle" placeholder="หัวข้อประกาศ">
-        <textarea id="noticeText" placeholder="รายละเอียดประกาศ"></textarea>
-        <button class="action" onclick="createNotice()">เผยแพร่ประกาศ</button>
-    </div>
-</section>
-
-</div>
-
-<footer>
-    © 2026 TCSN — THAI CYBER SECURITY NORMAL
-</footer>
-
-<script>
-function getData(key) {
-    try {
-        return JSON.parse(localStorage.getItem(key)) || [];
-    } catch {
-        return [];
-    }
+// 1) ใส่ Firebase web config ของโปรเจกต์คุณในออบเจ็กต์นี้ก่อนใช้งาน
+const firebaseConfig = {
+  apiKey: "PASTE_API_KEY_HERE",
+  authDomain: "PASTE_PROJECT_ID_HERE.firebaseapp.com",
+  projectId: "PASTE_PROJECT_ID_HERE",
+  storageBucket: "PASTE_PROJECT_ID_HERE.appspot.com",
+  messagingSenderId: "PASTE_MESSAGING_SENDER_ID_HERE",
+  appId: "PASTE_APP_ID_HERE"
+};
+const PRESIDENT_EMAIL = "tanpisid.sub@gmail.com";
+const $ = id => document.getElementById(id);
+let app, auth, db, currentUser=null, currentRole="guest";
+const status=(msg,type="")=>{const el=$("globalStatus");el.textContent=msg;el.className="status "+type};
+function showView(name){document.querySelectorAll("main section[id^='view-']").forEach(s=>s.classList.add("hidden"));$("view-"+name).classList.remove("hidden");}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+const safe = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function ts(d){try{return d?.toDate?.().toLocaleString("th-TH")||"เมื่อสักครู่"}catch{return ""}}
+function item(title,body,meta=""){return `<div class="post"><strong>${safe(title)}</strong><div>${safe(body)}</div><div class="muted small">${safe(meta)}</div></div>`}
+function needAuth(){if(!currentUser){status("กรุณาสมัครสมาชิกหรือเข้าสู่ระบบก่อนใช้ฟีเจอร์นี้","error");showView("account");return false}return true}
+function isAdmin(){return ["admin","president"].includes(currentRole)}
+async function loadRole(user){if(!user){currentRole="guest";return}try{const snap=await getDoc(doc(db,"users",user.uid));currentRole=snap.exists()?(snap.data().role||"member"):"member";if(user.email?.toLowerCase()===PRESIDENT_EMAIL && user.emailVerified){currentRole="president";}}catch{currentRole="member"}}
+function renderAccount(){ $("logoutBtn").classList.toggle("hidden",!currentUser);$("communityForm").classList.toggle("hidden",!currentUser);$("adminNav").classList.toggle("hidden",!isAdmin());$("accountInfo").textContent=currentUser?`เข้าสู่ระบบ: ${currentUser.email} | UID: ${currentUser.uid} | บทบาท: ${currentRole}`:"ยังไม่ได้เข้าสู่ระบบ"}
+async function refreshAll(){
+ const a=await getDocs(query(collection(db,"announcements"),orderBy("createdAt","desc"),limit(30)));
+ $("announcementList").innerHTML=a.empty?'<p class="muted">ยังไม่มีประกาศ</p>':a.docs.map(d=>item(d.data().title,d.data().body,ts(d.data().createdAt))).join("");
+ const c=await getDocs(query(collection(db,"community"),orderBy("createdAt","desc"),limit(50)));
+ $("communityList").innerHTML=c.empty?'<p class="muted">ยังไม่มีโพสต์ เริ่มแบ่งปันความรู้ได้เลย</p>':c.docs.map(d=>item(d.data().authorName,d.data().text,ts(d.data().createdAt))).join("");
+ if(currentUser){const r=await getDocs(query(collection(db,"reports"),orderBy("createdAt","desc"),limit(100)));const mine=r.docs.filter(d=>d.data().uid===currentUser.uid);$("myReports").innerHTML="<h3>รายงานของฉัน</h3>"+(mine.map(d=>item(d.data().title,d.data().details,`${d.data().type} • ${d.data().status||"รับเรื่องแล้ว"}`)).join("")||'<p class="muted">ยังไม่มีรายงาน</p>');}
+ if(isAdmin()){const r=await getDocs(query(collection(db,"reports"),orderBy("createdAt","desc"),limit(100)));$("adminReports").innerHTML=r.empty?'<p class="muted">ไม่มีรายงาน</p>':r.docs.map(d=>item(d.data().title,`${d.data().details}\nประเภท: ${d.data().type}\nติดต่อ: ${d.data().contact||"-"}`,`UID: ${d.data().uid} • ${d.data().status||"รับเรื่องแล้ว"}`)).join("");
+ const roles=await getDocs(collection(db,"roleDefinitions"));$("roleList").innerHTML=roles.docs.map(d=>`<div class="role-row"><span>${safe(d.data().label)} <span class="muted small">(${safe(d.id)} / ${safe(d.data().level)})</span></span></div>`).join("")||'<p class="muted">ยังไม่มีบทบาทที่สร้างเอง</p>';}
 }
-
-function saveData(key, data) {
-    localStorage.setItem(key, JSON.stringify(data));
-}
-
-function showPage(id) {
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-
-    document.getElementById(id).classList.add('active');
-}
-
-function createPost() {
-    const title = document.getElementById('postTitle').value.trim();
-    const text = document.getElementById('postText').value.trim();
-
-    if (!title || !text) {
-        alert('กรุณากรอกหัวข้อและข้อความ');
-        return;
-    }
-
-    const posts = getData('tcsn_posts');
-    posts.push({ title, text, date: new Date().toLocaleString('th-TH') });
-    saveData('tcsn_posts', posts);
-
-    document.getElementById('postTitle').value = '';
-    document.getElementById('postText').value = '';
-
-    renderPosts();
-}
-
-function renderPosts() {
-    const posts = getData('tcsn_posts');
-    document.getElementById('posts').innerHTML = '';
-
-    posts.slice().reverse().forEach(post => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        const title = document.createElement('h3');
-        title.textContent = post.title;
-
-        const body = document.createElement('p');
-        body.textContent = post.text;
-
-        const date = document.createElement('small');
-        date.textContent = post.date;
-
-        card.append(title, body, date);
-        document.getElementById('posts').appendChild(card);
-    });
-}
-
-function sendReport() {
-    const title = document.getElementById('reportTitle').value.trim();
-    const text = document.getElementById('reportText').value.trim();
-    const type = document.getElementById('reportType').value;
-
-    if (!title || !text) {
-        alert('กรุณากรอกรายละเอียด');
-        return;
-    }
-
-    const reports = getData('tcsn_reports');
-    reports.push({ title, text, type, date: new Date().toLocaleString('th-TH') });
-    saveData('tcsn_reports', reports);
-
-    alert('บันทึกเรื่องในเบราว์เซอร์นี้แล้ว');
-    document.getElementById('reportTitle').value = '';
-    document.getElementById('reportText').value = '';
-    renderReports();
-}
-
-function renderReports() {
-    const reports = getData('tcsn_reports');
-    const box = document.getElementById('reports');
-    box.innerHTML = '';
-
-    reports.slice().reverse().forEach(report => {
-        const card = document.createElement('div');
-        card.className = 'card';
-
-        const title = document.createElement('h3');
-        title.textContent = report.title;
-
-        const body = document.createElement('p');
-        body.textContent = report.type + ' — ' + report.text;
-
-        card.append(title, body);
-        box.appendChild(card);
-    });
-}
-
-function register() {
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim().toLowerCase();
-    const password = document.getElementById('regPassword').value;
-
-    if (!name || !email || password.length < 8) {
-        alert('กรอกข้อมูลให้ครบ และใช้รหัสผ่านอย่างน้อย 8 ตัวอักษร');
-        return;
-    }
-
-    const users = getData('tcsn_users');
-
-    if (users.some(user => user.email === email)) {
-        alert('อีเมลนี้สมัครแล้ว');
-        return;
-    }
-
-    users.push({ name, email, password });
-    saveData('tcsn_users', users);
-
-    alert('สมัครสมาชิกตัวอย่างสำเร็จ กรุณาเข้าสู่ระบบ');
-}
-
-function login() {
-    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const password = document.getElementById('loginPassword').value;
-
-    const users = getData('tcsn_users');
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if (!user) {
-        document.getElementById('loginStatus').textContent = 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
-        return;
-    }
-
-    document.getElementById('loginStatus').textContent = 'เข้าสู่ระบบแล้ว: ' + user.name;
-    alert('เข้าสู่ระบบตัวอย่างสำเร็จ');
-}
-
-function createNotice() {
-    alert('ระบบประกาศสำหรับแอดมินต้องเชื่อมระบบตรวจสอบสิทธิ์ที่ปลอดภัยก่อนใช้งานจริง');
-}
-
-function renderNotices() {
-    const notices = getData('tcsn_notices');
-    const box = document.getElementById('notices');
-    const home = document.getElementById('homeNotices');
-
-    box.innerHTML = '';
-    home.innerHTML = '';
-
-    if (!notices.length) {
-        box.textContent = 'ยังไม่มีประกาศ';
-        home.textContent = 'ยังไม่มีประกาศ';
-        return;
-    }
-
-    notices.slice().reverse().forEach(notice => {
-        const item = document.createElement('div');
-        item.className = 'card';
-
-        const title = document.createElement('h3');
-        title.textContent = notice.title;
-
-        const body = document.createElement('p');
-        body.textContent = notice.text;
-
-        item.append(title, body);
-        box.appendChild(item);
-        home.appendChild(item.cloneNode(true));
-    });
-}
-
-renderPosts();
-renderReports();
-renderNotices();
+try{
+ if(firebaseConfig.apiKey.startsWith("PASTE_")){status("ยังไม่ได้เชื่อม Firebase: ต้องสร้างโปรเจกต์และใส่ Web config ก่อน ระบบสมาชิก/ฐานข้อมูลจึงจะทำงานได้","error");}
+ else {app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);status("เชื่อมต่อ Firebase แล้ว กำลังรอการเข้าสู่ระบบ","ok");
+ onAuthStateChanged(auth,async user=>{currentUser=user;await loadRole(user);renderAccount();try{await refreshAll()}catch(e){status("อ่านข้อมูลไม่ได้ ตรวจสอบ Firestore Rules: "+e.message,"error")}});
+ }
+}catch(e){status("ตั้งค่า Firebase ไม่ถูกต้อง: "+e.message,"error")}
+$("signupForm").addEventListener("submit",async e=>{e.preventDefault();if(!auth)return status("ต้องตั้งค่า Firebase ก่อน","error");try{const name=$("signupName").value.trim();const cred=await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);await updateProfile(cred.user,{displayName:name});await setDoc(doc(db,"users",cred.user.uid),{name,email:cred.user.email,role:"member",createdAt:serverTimestamp()});status("สมัครสมาชิกสำเร็จ","ok");}catch(err){status(err.message,"error")}});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!auth)return status("ต้องตั้งค่า Firebase ก่อน","error");try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);status("เข้าสู่ระบบสำเร็จ","ok")}catch(err){status(err.message,"error")}});
+$("logoutBtn").addEventListener("click",async()=>{if(auth){await signOut(auth);status("ออกจากระบบแล้ว","ok")}});
+$("resetPassword").addEventListener("click",async()=>{if(!auth)return status("ต้องตั้งค่า Firebase ก่อน","error");const email=$("loginEmail").value.trim();if(!email)return status("กรอกอีเมลในช่องเข้าสู่ระบบก่อน","error");try{await sendPasswordResetEmail(auth,email);status("ส่งลิงก์ตั้งรหัสผ่านใหม่แล้ว กรุณาตรวจอีเมล","ok")}catch(e){status(e.message,"error")}});
+$("communityForm").addEventListener("submit",async e=>{e.preventDefault();if(!needAuth()||!db)return;const text=$("communityText").value.trim();if(!text)return;try{await addDoc(collection(db,"community"),{uid:currentUser.uid,authorName:currentUser.displayName||currentUser.email,text,createdAt:serverTimestamp()});$("communityText").value="";await refreshAll();status("โพสต์แล้ว","ok")}catch(err){status(err.message,"error")}});
+$("reportForm").addEventListener("submit",async e=>{e.preventDefault();if(!needAuth()||!db)return;try{await addDoc(collection(db,"reports"),{uid:currentUser.uid,title:$("reportTitle").value.trim(),type:$("reportType").value,details:$("reportDetails").value.trim(),contact:$("reportContact").value.trim(),status:"รับเรื่องแล้ว",createdAt:serverTimestamp()});e.target.reset();await refreshAll();status("ส่งรายงานแล้ว","ok")}catch(err){status(err.message,"error")}});
+$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();if(!needAuth()||!isAdmin())return status("ไม่มีสิทธิ์แอดมิน","error");try{await addDoc(collection(db,"announcements"),{title:$("announcementTitle").value.trim(),body:$("announcementBody").value.trim(),authorUid:currentUser.uid,authorEmail:currentUser.email,createdAt:serverTimestamp()});e.target.reset();await refreshAll();status("เผยแพร่ประกาศแล้ว","ok")}catch(err){status(err.message,"error")}});
+$("roleForm").addEventListener("submit",async e=>{e.preventDefault();if(!db||!isAdmin())return status("ไม่มีสิทธิ์แอดมิน","error");try{const uid=$("roleUid").value.trim(),role=$("roleName").value;await setDoc(doc(db,"users",uid),{role,updatedAt:serverTimestamp()},{merge:true});status("บันทึกบทบาทแล้ว","ok");await refreshAll()}catch(err){status("เปลี่ยนบทบาทไม่สำเร็จ: "+err.message,"error")}});
+$("createRoleForm").addEventListener("submit",async e=>{e.preventDefault();if(!db||!isAdmin())return status("ไม่มีสิทธิ์แอดมิน","error");try{const id=$("newRoleId").value.trim(),label=$("newRoleLabel").value.trim(),level=$("newRoleLevel").value;await setDoc(doc(db,"roleDefinitions",id),{label,level,createdBy:currentUser.uid,createdAt:serverTimestamp()});e.target.reset();await refreshAll();status("สร้างบทบาทแล้ว","ok")}catch(err){status("สร้างบทบาทไม่สำเร็จ: "+err.message,"error")}});
 </script>
-
-</body>
-  </html>
+</body></html>
