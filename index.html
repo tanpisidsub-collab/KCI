@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCSN | THAI CYBER SECURITY NORMAL</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #050505;
+    color: white;
+}
+
+header {
+    background: #080808;
+    border-bottom: 1px solid #00ff99;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    color: #00ff99;
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-shadow: 0 0 15px #00ff99;
+}
+
+header p {
+    letter-spacing: 3px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    background: #101010;
+}
+
+nav button {
+    background: transparent;
+    border: 1px solid #00ff99;
+    color: #00ff99;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+nav button:hover {
+    background: #00ff99;
+    color: black;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 25px 15px;
+}
+
+.hero {
+    text-align: center;
+    padding: 65px 15px;
+    border: 1px solid #164c39;
+    background: linear-gradient(135deg, #101b18, #050505);
+    border-radius: 12px;
+}
+
+h2 {
+    color: #00ff99;
+}
+
+.card {
+    background: #101010;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    background: #080808;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 5px;
+}
+
+.action {
+    background: #00ff99;
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.notice {
+    color: #00ff99;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 25px;
+    text-align: center;
+    color: #777;
+    border-top: 1px solid #222;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TCSN</div>
+    <p>THAI CYBER SECURITY NORMAL</p>
+    <small>CYBER SECURITY • COMMUNITY • EDUCATION</small>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">หน้าแรก</button>
+    <button onclick="showPage('community')">คอมมูนิตี้</button>
+    <button onclick="showPage('report')">แจ้งเรื่อง</button>
+    <button onclick="showPage('announcements')">ประกาศ</button>
+    <button onclick="showPage('login')">เข้าสู่ระบบ</button>
+</nav>
+
+<div class="container">
+
+<section id="home" class="page active">
+    <div class="hero">
+        <h2>WELCOME TO TCSN</h2>
+        <p>ชมรมส่งเสริมความปลอดภัยไซเบอร์ไทย</p>
+        <p>เรียนรู้ แบ่งปัน และสร้างสังคมไซเบอร์ที่ปลอดภัย</p>
+        <button class="action" onclick="showPage('community')">
+            เข้าสู่คอมมูนิตี้
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>เกี่ยวกับชมรม</h2>
+        <p>
+            TCSN เป็นพื้นที่สำหรับแบ่งปันความรู้
+            ด้านความปลอดภัยไซเบอร์ การป้องกันภัยออนไลน์
+            และการสร้างความตระหนักรู้ทางดิจิทัล
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>ประกาศล่าสุด</h2>
+        <div id="homeNotices">ยังไม่มีประกาศ</div>
+    </div>
+</section>
+
+<section id="community" class="page">
+    <h2>คอมมูนิตี้ TCSN</h2>
+
+    <div class="card">
+        <h3>สร้างโพสต์</h3>
+        <input id="postTitle" placeholder="หัวข้อโพสต์">
+        <textarea id="postText" placeholder="เขียนข้อความ"></textarea>
+        <button class="action" onclick="createPost()">เผยแพร่โพสต์</button>
+    </div>
+
+    <div id="posts"></div>
+</section>
+
+<section id="report" class="page">
+    <h2>ระบบแจ้งเรื่อง</h2>
+
+    <div class="card">
+        <input id="reportTitle" placeholder="หัวข้อที่ต้องการแจ้ง">
+        <select id="reportType">
+            <option>เหตุสงสัยหลอกลวงออนไลน์</option>
+            <option>ปัญหาความปลอดภัยไซเบอร์</option>
+            <option>รายงานเนื้อหาไม่เหมาะสม</option>
+            <option>ข้อเสนอแนะ</option>
+        </select>
+        <textarea id="reportText" placeholder="รายละเอียด"></textarea>
+        <button class="action" onclick="sendReport()">ส่งเรื่อง</button>
+    </div>
+
+    <div id="reports"></div>
+</section>
+
+<section id="announcements" class="page">
+    <h2>ประกาศจากชมรม</h2>
+    <div id="notices"></div>
+</section>
+
+<section id="login" class="page">
+    <h2>สมัครสมาชิก / เข้าสู่ระบบ</h2>
+
+    <div class="card">
+        <h3>สมัครสมาชิก</h3>
+        <input id="regName" placeholder="ชื่อสมาชิก">
+        <input id="regEmail" type="email" placeholder="อีเมล">
+        <input id="regPassword" type="password" placeholder="รหัสผ่าน">
+        <button class="action" onclick="register()">สมัครสมาชิก</button>
+    </div>
+
+    <div class="card">
+        <h3>เข้าสู่ระบบ</h3>
+        <input id="loginEmail" type="email" placeholder="อีเมล">
+        <input id="loginPassword" type="password" placeholder="รหัสผ่าน">
+        <button class="action" onclick="login()">เข้าสู่ระบบ</button>
+        <p id="loginStatus"></p>
+    </div>
+</section>
+
+<section id="admin" class="page">
+    <h2>ระบบจัดการแอดมิน</h2>
+
+    <div class="card">
+        <h3>สร้างประกาศ</h3>
+        <input id="noticeTitle" placeholder="หัวข้อประกาศ">
+        <textarea id="noticeText" placeholder="รายละเอียดประกาศ"></textarea>
+        <button class="action" onclick="createNotice()">เผยแพร่ประกาศ</button>
+    </div>
+</section>
+
+</div>
+
+<footer>
+    © 2026 TCSN — THAI CYBER SECURITY NORMAL
+</footer>
+
+<script>
+function getData(key) {
+    try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch {
+        return [];
+    }
+}
+
+function saveData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+function showPage(id) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+}
+
+function createPost() {
+    const title = document.getElementById('postTitle').value.trim();
+    const text = document.getElementById('postText').value.trim();
+
+    if (!title || !text) {
+        alert('กรุณากรอกหัวข้อและข้อความ');
+        return;
+    }
+
+    const posts = getData('tcsn_posts');
+    posts.push({ title, text, date: new Date().toLocaleString('th-TH') });
+    saveData('tcsn_posts', posts);
+
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postText').value = '';
+
+    renderPosts();
+}
+
+function renderPosts() {
+    const posts = getData('tcsn_posts');
+    document.getElementById('posts').innerHTML = '';
+
+    posts.slice().reverse().forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const title = document.createElement('h3');
+        title.textContent = post.title;
+
+        const body = document.createElement('p');
+        body.textContent = post.text;
+
+        const date = document.createElement('small');
+        date.textContent = post.date;
+
+        card.append(title, body, date);
+        document.getElementById('posts').appendChild(card);
+    });
+}
+
+function sendReport() {
+    const title = document.getElementById('reportTitle').value.trim();
+    const text = document.getElementById('reportText').value.trim();
+    const type = document.getElementById('reportType').value;
+
+    if (!title || !text) {
+        alert('กรุณากรอกรายละเอียด');
+        return;
+    }
+
+    const reports = getData('tcsn_reports');
+    reports.push({ title, text, type, date: new Date().toLocaleString('th-TH') });
+    saveData('tcsn_reports', reports);
+
+    alert('บันทึกเรื่องในเบราว์เซอร์นี้แล้ว');
+    document.getElementById('reportTitle').value = '';
+    document.getElementById('reportText').value = '';
+    renderReports();
+}
+
+function renderReports() {
+    const reports = getData('tcsn_reports');
+    const box = document.getElementById('reports');
+    box.innerHTML = '';
+
+    reports.slice().reverse().forEach(report => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const title = document.createElement('h3');
+        title.textContent = report.title;
+
+        const body = document.createElement('p');
+        body.textContent = report.type + ' — ' + report.text;
+
+        card.append(title, body);
+        box.appendChild(card);
+    });
+}
+
+function register() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPassword').value;
+
+    if (!name || !email || password.length < 8) {
+        alert('กรอกข้อมูลให้ครบ และใช้รหัสผ่านอย่างน้อย 8 ตัวอักษร');
+        return;
+    }
+
+    const users = getData('tcsn_users');
+
+    if (users.some(user => user.email === email)) {
+        alert('อีเมลนี้สมัครแล้ว');
+        return;
+    }
+
+    users.push({ name, email, password });
+    saveData('tcsn_users', users);
+
+    alert('สมัครสมาชิกตัวอย่างสำเร็จ กรุณาเข้าสู่ระบบ');
+}
+
+function login() {
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+
+    const users = getData('tcsn_users');
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (!user) {
+        document.getElementById('loginStatus').textContent = 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+        return;
+    }
+
+    document.getElementById('loginStatus').textContent = 'เข้าสู่ระบบแล้ว: ' + user.name;
+    alert('เข้าสู่ระบบตัวอย่างสำเร็จ');
+}
+
+function createNotice() {
+    alert('ระบบประกาศสำหรับแอดมินต้องเชื่อมระบบตรวจสอบสิทธิ์ที่ปลอดภัยก่อนใช้งานจริง');
+}
+
+function renderNotices() {
+    const notices = getData('tcsn_notices');
+    const box = document.getElementById('notices');
+    const home = document.getElementById('homeNotices');
+
+    box.innerHTML = '';
+    home.innerHTML = '';
+
+    if (!notices.length) {
+        box.textContent = 'ยังไม่มีประกาศ';
+        home.textContent = 'ยังไม่มีประกาศ';
+        return;
+    }
+
+    notices.slice().reverse().forEach(notice => {
+        const item = document.createElement('div');
+        item.className = 'card';
+
+        const title = document.createElement('h3');
+        title.textContent = notice.title;
+
+        const body = document.createElement('p');
+        body.textContent = notice.text;
+
+        item.append(title, body);
+        box.appendChild(item);
+        home.appendChild(item.cloneNode(true));
+    });
+}
+
+renderPosts();
+renderReports();
+renderNotices();
+</script>
+
+</body>
+  </html>
