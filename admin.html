@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KCI Admin - จัดการคำร้อง</title>
+
+<style>
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+h1 { color: #ef4444; }
+.card {
+  background: #171717;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+input, button, select {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+}
+input, select {
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+}
+button {
+  background: #dc2626;
+  color: white;
+  border: none;
+}
+.muted { color: #aaa; }
+</style>
+</head>
+
+<body>
+<h1>KCI ADMIN</h1>
+<h2>ระบบจัดการคำร้อง</h2>
+
+<p id="message">กำลังตรวจสอบสิทธิ์...</p>
+
+<div id="adminPanel" hidden>
+  <input id="search" placeholder="ค้นหาคำร้อง...">
+
+  <select id="filter">
+    <option value="">ทุกสถานะ</option>
+    <option>รอตรวจสอบ</option>
+    <option>กำลังดำเนินการ</option>
+    <option>ดำเนินการแล้ว</option>
+    <option>ปฏิเสธ</option>
+  </select>
+
+  <button id="reload">โหลดคำร้อง</button>
+  <div id="reports"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCWldUK5CBgogP-lJATKuB-ASNm-9kbudU",
+  authDomain: "tcsn-kci.firebaseapp.com",
+  projectId: "tcsn-kci",
+  storageBucket: "tcsn-kci.firebasestorage.app",
+  messagingSenderId: "795641510066",
+  appId: "1:795641510066:web:1ac8ff1f257d323970b1ab"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const message = document.getElementById("message");
+const panel = document.getElementById("adminPanel");
+const reportsBox = document.getElementById("reports");
+
+let allReports = [];
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    message.textContent = "กรุณาเข้าสู่ระบบผ่านเว็บไซต์ KCI ก่อน";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://firestore.googleapis.com/v1/projects/tcsn-kci/databases/(default)/documents/users/" +
+      encodeURIComponent(user.uid) +
+      "?key=" + encodeURIComponent(firebaseConfig.apiKey),
+      {
+        headers: {
+          Authorization: "Bearer " + await user.getIdToken()
+        }
+      }
+    );
+
+    if (!response.ok) {
+      message.textContent = "ตรวจสอบสิทธิ์ไม่สำเร็จ";
+      return;
+    }
+
+    const userData = await response.json();
+    const role = userData.fields?.role?.stringValue;
+
+    if (!["admin", "president"].includes(role)) {
+      message.textContent = "คุณไม่มีสิทธิ์เข้าถึงระบบแอดมิน";
+      return;
+    }
+
+    panel.hidden = false;
+    message.textContent = "เข้าสู่ระบบแอดมินแล้ว";
+    await loadReports();
+
+  } catch (error) {
+    console.error(error);
+    message.textContent = "เกิดข้อผิดพลาดในการตรวจสอบสิทธิ์";
+  }
+});
+
+async function loadReports() {
+  reportsBox.textContent = "กำลังโหลดคำร้อง...";
+
+  try {
+    const snapshot = await getDocs(collection(db, "reports"));
+
+    allReports = snapshot.docs.map(item => ({
+      id: item.id,
+      ...item.data()
+    }));
+
+    renderReports();
+  } catch (error) {
+    console.error(error);
+    reportsBox.textContent =
+      "โหลดคำร้องไม่สำเร็จ โปรดตรวจสอบ Firestore Rules";
+  }
+}
+
+function renderReports() {
+  const search = document.getElementById("search")
+    .value.trim().toLowerCase();
+
+  const status = document.getElementById("filter").value;
+
+  const filtered = allReports.filter(report => {
+    const text = [
+      report.title,
+      report.type,
+      report.description,
+      report.email
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    return text.includes(search) &&
+      (!status || (report.status || "รอตรวจสอบ") === status);
+  });
+
+  reportsBox.replaceChildren();
+
+  if (!filtered.length) {
+    reportsBox.textContent = "ไม่พบคำร้อง";
+    return;
+  }
+
+  for (const report of filtered) {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const title = document.createElement("h3");
+    title.textContent = report.title || "ไม่มีหัวข้อ";
+
+    const details = document.createElement("p");
+    details.textContent = report.description || "ไม่มีรายละเอียด";
+
+    const type = document.createElement("p");
+    type.textContent = "ประเภท: " + (report.type || "ไม่ระบุ");
+
+    const currentStatus = report.status || "รอตรวจสอบ";
+    const statusText = document.createElement("p");
+    statusText.textContent = "สถานะ: " + currentStatus;
+
+    const select = document.createElement("select");
+
+    for (const value of [
+      "รอตรวจสอบ",
+      "กำลังดำเนินการ",
+      "ดำเนินการแล้ว",
+      "ปฏิเสธ"
+    ]) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      option.selected = value === currentStatus;
+      select.appendChild(option);
+    }
+
+    const save = document.createElement("button");
+    save.textContent = "บันทึกสถานะ";
+
+    save.addEventListener("click", async () => {
+      try {
+        await updateDoc(doc(db, "reports", report.id), {
+          status: select.value
+        });
+
+        report.status = select.value;
+        renderReports();
+        alert("อัปเดตสถานะเรียบร้อย");
+      } catch (error) {
+        console.error(error);
+        alert("บันทึกไม่สำเร็จ โปรดตรวจสอบ Firestore Rules");
+      }
+    });
+
+    card.append(title, type, details, statusText, select, save);
+    reportsBox.appendChild(card);
+  }
+}
+
+document.getElementById("reload")
+  .addEventListener("click", loadReports);
+
+document.getElementById("search")
+  .addEventListener("input", renderReports);
+
+document.getElementById("filter")
+  .addEventListener("change", renderReports);
+</script>
+</body>
+</html>
